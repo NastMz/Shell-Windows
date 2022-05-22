@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.osproject.shell.windows.components;
 
 import java.awt.Color;
 import javax.swing.JLabel;
 
-/**
- *
- * @author ksmar
- */
 public class AlertFrame extends javax.swing.JFrame {
 
     private final LoginFrame loginFrame;
@@ -295,7 +287,6 @@ public class AlertFrame extends javax.swing.JFrame {
         }
 
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alertMessagePane;

@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.osproject.shell.windows.components;
 
 import com.osproject.shell.windows.main.Login;
 import java.awt.Color;
 
-/**
- *
- * @author ksmar
- */
 public class LoginFrame extends javax.swing.JFrame {
-    
+
     private Login login = new Login();
     private final AlertFrame alert = new AlertFrame(this);
     private int xMouse, yMouse;
@@ -381,21 +373,24 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
 
+        String userName = txtUserName.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+
         alert.setLocationRelativeTo(this);
 
-        if (txtUserName.getText().equals("Ingrese su nombre de usuario") || txtUserName.getText().isBlank()) {
+        if (userName.equals("Ingrese su nombre de usuario") || userName.isBlank()) {
             alert.getTitleLabel().setText("¡Atención!");
             alert.getMessageLabel().setText("Por favor introduzca un usuario");
             alert.setVisible(true);
             txtUserName.requestFocusInWindow();
-        } else if (String.valueOf(txtPassword.getPassword()).equals("********") || String.valueOf(txtPassword.getPassword()).isBlank()) {
+        } else if (password.equals("********") || password.isBlank()) {
             alert.getTitleLabel().setText("¡Atención!");
             alert.getMessageLabel().setText("Por favor introduzca una contraseña");
             alert.setVisible(true);
             txtPassword.requestFocusInWindow();
-        } else if (!txtUserName.getText().equals("a") || !String.valueOf(txtPassword.getPassword()).equals("a")) {
+        } else if (!login.login(userName, password)) {
             alert.getTitleLabel().setText("¡Atención!");
-            alert.getMessageLabel().setText("El usuario y/o contraseña no son correctos");
+            alert.getMessageLabel().setText("Usuario y/o contraseña son incorrecto");
             alert.setVisible(true);
         } else {
             alert.getTitleLabel().setText("¡Buen Trabajo!");
@@ -456,12 +451,9 @@ public class LoginFrame extends javax.swing.JFrame {
         return alert;
     }
 
-    
     /**
      * @param args the command line arguments
      */
-   
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnExit;
     private javax.swing.JPanel btnLogin;

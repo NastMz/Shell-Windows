@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.osproject.shell.windows.components;
 
 import com.osproject.shell.windows.utils.PerformanceGraphics;
@@ -16,10 +12,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import org.jfree.chart.ChartPanel;
 
-/**
- *
- * @author ksmar
- */
 public class MainFrame extends javax.swing.JFrame {
 
     private final LoginFrame loginFrame;
@@ -55,7 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
                     this.thumbColor = blue;
                 }
             });
-            
+
             this.setLocationRelativeTo(null);
 
             ChartPanel d = performance.createPaneDrive();
@@ -106,10 +98,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         optionOne = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         shellLabel = new javax.swing.JLabel();
         optionTwo = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         performanceLabel = new javax.swing.JLabel();
         sectionPane = new javax.swing.JPanel();
         sectionLabel = new javax.swing.JLabel();
@@ -184,7 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("-");
         btnMin.add(jLabel4, java.awt.BorderLayout.CENTER);
 
-        headBar.add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 40, 40));
+        headBar.add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 40, 20));
 
         btnClose.setBackground(new java.awt.Color(9, 121, 176));
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,15 +191,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
         btnClose.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("X");
         btnClose.add(jLabel2, java.awt.BorderLayout.CENTER);
 
-        headBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 40, 40));
+        headBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 40, 20));
 
-        contentPane.add(headBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
+        contentPane.add(headBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 20));
 
         sidePane.setBackground(new java.awt.Color(0, 65, 115));
         sidePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -242,7 +232,7 @@ public class MainFrame extends javax.swing.JFrame {
         titlePane.add(titleLabel1);
 
         jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\windows-client.png")); // NOI18N
@@ -258,7 +248,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         titlePane.add(jPanel2);
 
-        sidePane.add(titlePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 110));
+        sidePane.add(titlePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, 110));
 
         optionOne.setBackground(new java.awt.Color(22, 75, 115));
         optionOne.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -274,17 +264,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         optionOne.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\console.png")); // NOI18N
-        optionOne.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 60));
-
         shellLabel.setBackground(new java.awt.Color(0, 65, 115));
         shellLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         shellLabel.setForeground(new java.awt.Color(255, 255, 255));
         shellLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        shellLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\console.png")); // NOI18N
         shellLabel.setText("Shell");
         shellLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        optionOne.add(shellLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 220, 60));
+        optionOne.add(shellLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
 
         sidePane.add(optionOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
 
@@ -303,15 +290,12 @@ public class MainFrame extends javax.swing.JFrame {
         });
         optionTwo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\dashboard.png")); // NOI18N
-        optionTwo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 60));
-
         performanceLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         performanceLabel.setForeground(new java.awt.Color(255, 255, 255));
         performanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        performanceLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\dashboard.png")); // NOI18N
         performanceLabel.setText("Rendimiento");
-        optionTwo.add(performanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 220, 60));
+        optionTwo.add(performanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
 
         sidePane.add(optionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 220, 58));
 
@@ -347,24 +331,29 @@ public class MainFrame extends javax.swing.JFrame {
         homePane.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 65, 115));
         jLabel1.setText("¡Bienvenido de vuelta!");
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 22)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Este es el Sistema Shell Windows-Linux, con el que puedes:");
         jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("- Monitorear el estado de consumo de tu sistema linux.");
         jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("- Ejecutar comandos en tu sistema linux.");
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 22)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Para esto solo has click en las opciones que tienes en la barra lateral.");
         jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -374,6 +363,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel11.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(9, 121, 176));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("¡Esperamos que sea util para ti!");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -500,6 +490,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         consoleArea.setEditable(false);
         consoleArea.setBackground(new java.awt.Color(255, 255, 255));
+        consoleArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 121, 176)));
         consoleArea.setContentType("text/html"); // NOI18N
         consoleArea.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         consoleArea.setFocusable(false);
@@ -729,7 +720,6 @@ public class MainFrame extends javax.swing.JFrame {
         ramPercent.setText(percent);
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnClose;
     private javax.swing.JPanel btnExecute;
@@ -751,9 +741,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
