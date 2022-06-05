@@ -18,7 +18,8 @@ public class MainFrame extends javax.swing.JFrame {
     private final PerformanceGraphics performance = new PerformanceGraphics(this);
     private HTMLDocument doc;
 
-    private int xMouse, yMouse;
+    private int xMouse;
+    private int yMouse;
     private final Color red = new Color(220, 53, 69);
     private final Color blue = new Color(9, 121, 176);
     private final Color darkBlue = new Color(0, 65, 115);
@@ -31,7 +32,6 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      *
-     * @param alert
      */
     public MainFrame(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
@@ -565,7 +565,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinMouseExited
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        loginFrame.getLogin().setLogin(false);
+        try {
+            loginFrame.getSocket().close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(0);
     }//GEN-LAST:event_btnCloseMouseClicked
 

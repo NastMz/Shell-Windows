@@ -2,23 +2,31 @@ package com.osproject.shell.windows.components;
 
 import com.osproject.shell.windows.main.Login;
 import java.awt.Color;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginFrame extends javax.swing.JFrame {
 
-    private Login login = new Login();
+    private final Login login = new Login();
     private final AlertFrame alert = new AlertFrame(this);
-    private int xMouse, yMouse;
-    private Color red = new Color(220, 53, 69);
-    private Color white = new Color(255, 255, 255);
-    private Color blue = new Color(9, 121, 176);
-    private Color darkBlue = new Color(0, 65, 115);
-    private Color gray = new Color(204, 204, 204);
-    private Color black = new Color(0, 0, 0);
+    private int xMouse;
+    private int yMouse;
+    private final Color red = new Color(220, 53, 69);
+
+    private final Color blue = new Color(9, 121, 176);
+    private final Color darkBlue = new Color(0, 65, 115);
+    private final Color gray = new Color(204, 204, 204);
+    private final Color black = new Color(0, 0, 0);
+
+    private Socket socket;
 
     /**
      * Creates new form Login
      */
-    public LoginFrame() {
+    public LoginFrame(Socket socket) {
+        this.socket = socket;
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -345,7 +353,12 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_headBarMouseDragged
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        System.exit(0);
+        try {
+            socket.close();
+            System.exit(0);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
@@ -378,6 +391,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
         alert.setLocationRelativeTo(this);
 
+        System.out.println("client@windows~$ Sending login request...");
+        login.login(socket, userName, password);
+        System.out.println("client@windows~$ Login request response received");
+
         if (userName.equals("Ingrese su nombre de usuario") || userName.isBlank()) {
             alert.getTitleLabel().setText("¡Atención!");
             alert.getMessageLabel().setText("Por favor introduzca un usuario");
@@ -388,14 +405,13 @@ public class LoginFrame extends javax.swing.JFrame {
             alert.getMessageLabel().setText("Por favor introduzca una contraseña");
             alert.setVisible(true);
             txtPassword.requestFocusInWindow();
-        } else if (!login.login(userName, password)) {
+        } else if (!login.isLogin()) {
             alert.getTitleLabel().setText("¡Atención!");
-            alert.getMessageLabel().setText("Usuario y/o contraseña son incorrecto");
+            alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
             alert.setVisible(true);
         } else {
             alert.getTitleLabel().setText("¡Buen Trabajo!");
             alert.getMessageLabel().setText("Sesión iniciada correctamente");
-            login.setLogin(true);
             alert.setVisible(true);
         }
     }//GEN-LAST:event_btnLoginMouseClicked
@@ -449,6 +465,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public AlertFrame getAlert() {
         return alert;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     /**

@@ -19,7 +19,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class PerformanceGraphics {
 
     private static final Random random = new Random();
-    private final int n = 100;
+    private static final int n = 100;
     private final MainFrame main;
 
     public PerformanceGraphics(MainFrame main) {
@@ -47,23 +47,11 @@ public class PerformanceGraphics {
             for (Integer data : arrayDeque) {
                 series.add(series.getItemCount(), data);
             }
-            String percent = arrayDeque.getLast().toString() + "%";
+            String percent = arrayDeque.getLast() + "%";
             main.setProcessorPercent(percent);
         }).start();
 
-        JFreeChart chart = ChartFactory.createXYLineChart("", "",
-                "", dataset, PlotOrientation.VERTICAL, false, false, false);
-
-        chart.getXYPlot().getDomainAxis().setVisible(false);
-        chart.getXYPlot().setBackgroundPaint(Color.white);
-        chart.getXYPlot().getRenderer().setSeriesPaint(0, new Color(9, 121, 176));
-
-        return new ChartPanel(chart) {
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(415, 150);
-            }
-        };
+        return getChartPanel(dataset);
     }
 
     public ChartPanel createPaneRam() {
@@ -87,10 +75,14 @@ public class PerformanceGraphics {
             for (Integer data : arrayDeque) {
                 series.add(series.getItemCount(), data);
             }
-            String percent = arrayDeque.getLast().toString() + "%";
+            String percent = arrayDeque.getLast() + "%";
             main.setRamPercent(percent);
         }).start();
 
+        return getChartPanel(dataset);
+    }
+
+    private ChartPanel getChartPanel(XYSeriesCollection dataset) {
         JFreeChart chart = ChartFactory.createXYLineChart("", "",
                 "", dataset, PlotOrientation.VERTICAL, false, false, false);
 
@@ -112,7 +104,7 @@ public class PerformanceGraphics {
         arrayDeque.add(random.nextInt(101));
         arrayDeque.add(100 - arrayDeque.getFirst());
 
-        DefaultPieDataset dataset = new DefaultPieDataset();
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         dataset.setValue("Usado", arrayDeque.getFirst());
         dataset.setValue("Libre", 100 - arrayDeque.getFirst());
 
@@ -125,7 +117,7 @@ public class PerformanceGraphics {
             dataset.setValue("Usado", arrayDeque.getFirst());
             dataset.setValue("Libre", 100 - arrayDeque.getFirst());
 
-            String percent = arrayDeque.getFirst().toString() + "%";
+            String percent = arrayDeque.getFirst() + "%";
             main.setDrivePercent(percent);
         }).start();
 

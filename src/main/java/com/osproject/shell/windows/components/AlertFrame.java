@@ -8,7 +8,8 @@ public class AlertFrame extends javax.swing.JFrame {
     private final LoginFrame loginFrame;
     private boolean isMainOpen = false;
 
-    private int xMouse, yMouse;
+    private int xMouse;
+    private int yMouse;
     private final Color red = new Color(220, 53, 69);
     private final Color white = new Color(255, 255, 255);
     private final Color blue = new Color(9, 121, 176);
