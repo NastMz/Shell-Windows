@@ -1,6 +1,6 @@
-package com.osproject.shell.windows.components;
+package com.osproject.shell.client.components;
 
-import com.osproject.shell.windows.main.Login;
+import com.osproject.shell.client.core.Login;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;

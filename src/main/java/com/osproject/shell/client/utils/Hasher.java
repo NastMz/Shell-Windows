@@ -1,4 +1,4 @@
-package com.osproject.shell.windows.utils;
+package com.osproject.shell.client.utils;
 
 import java.security.MessageDigest;
 

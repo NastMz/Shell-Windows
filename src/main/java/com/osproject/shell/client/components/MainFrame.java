@@ -1,8 +1,10 @@
-package com.osproject.shell.windows.components;
+package com.osproject.shell.client.components;
 
-import com.osproject.shell.windows.utils.PerformanceGraphics;
+import com.osproject.shell.client.core.Shell;
+import com.osproject.shell.client.utils.PerformanceGraphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final LoginFrame loginFrame;
     private final PerformanceGraphics performance = new PerformanceGraphics(this);
     private HTMLDocument doc;
+    private Shell shell;
 
     private int xMouse;
     private int yMouse;
@@ -235,15 +238,12 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\windows-client.png")); // NOI18N
         jPanel2.add(jLabel16);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\transfer.png")); // NOI18N
         jPanel2.add(jLabel12);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\linux-client.png")); // NOI18N
         jPanel2.add(jLabel18);
 
         titlePane.add(jPanel2);
@@ -268,7 +268,6 @@ public class MainFrame extends javax.swing.JFrame {
         shellLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         shellLabel.setForeground(new java.awt.Color(255, 255, 255));
         shellLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        shellLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\console.png")); // NOI18N
         shellLabel.setText("Shell");
         shellLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         optionOne.add(shellLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
@@ -293,7 +292,6 @@ public class MainFrame extends javax.swing.JFrame {
         performanceLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         performanceLabel.setForeground(new java.awt.Color(255, 255, 255));
         performanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        performanceLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\dashboard.png")); // NOI18N
         performanceLabel.setText("Rendimiento");
         optionTwo.add(performanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
 
@@ -306,7 +304,6 @@ public class MainFrame extends javax.swing.JFrame {
         sectionLabel.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
         sectionLabel.setForeground(new java.awt.Color(255, 255, 255));
         sectionLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        sectionLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\home.png")); // NOI18N
         sectionLabel.setText("Home");
 
         javax.swing.GroupLayout sectionPaneLayout = new javax.swing.GroupLayout(sectionPane);
@@ -462,7 +459,6 @@ public class MainFrame extends javax.swing.JFrame {
         btnExecute.setLayout(new java.awt.BorderLayout());
 
         executeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        executeIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\play.png")); // NOI18N
         btnExecute.add(executeIcon, java.awt.BorderLayout.PAGE_START);
 
         shellPane.add(btnExecute, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 50));
@@ -642,6 +638,9 @@ public class MainFrame extends javax.swing.JFrame {
             txtComand.setText("");
             txtComand.setForeground(black);
         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            commandExecute();
+        }
     }//GEN-LAST:event_txtComandKeyPressed
 
     private void txtComandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComandActionPerformed
@@ -664,37 +663,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnExecuteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExecuteMouseClicked
 
-        if (!txtComand.getText().isBlank() && !txtComand.getText().equals("Introduce un comando")) {
-            if (txtComand.getText().equals("clr") || txtComand.getText().equals("clear")) {
-                consoleArea.setText("");
-            } else {
-                btnExecute.requestFocusInWindow();
-
-                String response = "soy una respuesta";
-
-                String text = "<font color='#0979B0' face='roboto'>client@windows~$ </font>"
-                        + "<font color='#999999' face='roboto'>" + txtComand.getText() + "</font><br>"
-                        + "<font color='#004173' face='roboto'>server@linux~$ </font>"
-                        + "<font color='#000000' face='roboto'>" + response + "</font><br>";
-
-                try {
-                    doc.insertAfterEnd(doc.getCharacterElement(doc.getLength()), text);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtComand.setText("Introduce un comando");
-                txtComand.setForeground(gray);
-            }
-        } else {
-            loginFrame.getAlert().getTitleLabel().setText("¡Atención!");
-            loginFrame.getAlert().getMessageLabel().setText("Por favor introduzca un comando");
-            loginFrame.getAlert().setVisible(true);
-            txtComand.requestFocusInWindow();
-        }
-
+        commandExecute();
     }//GEN-LAST:event_btnExecuteMouseClicked
 
     private void btnExecuteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExecuteMouseEntered
@@ -722,6 +691,37 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void setRamPercent(String percent) {
         ramPercent.setText(percent);
+    }
+
+    private void commandExecute() {
+        if (!txtComand.getText().isBlank() && !txtComand.getText().equals("Introduce un comando")) {
+            if (txtComand.getText().equals("clr") || txtComand.getText().equals("clear")) {
+                consoleArea.setText("");
+            } else {
+                btnExecute.requestFocusInWindow();
+
+                String text = "<font color='#0979B0' face='roboto'>client@windows~$ </font>"
+                        + "<font color='#999999' face='roboto'>" + txtComand.getText() + "</font><br>"
+                        + "<font color='#004173' face='roboto'>server@linux~$ </font>"
+                        + "<font color='#000000' face='roboto'>" + shell.executeCommand(txtComand.getText()) + "</font><br>";
+
+                try {
+                    doc.insertAfterEnd(doc.getCharacterElement(doc.getLength()), text);
+                } catch (BadLocationException | IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                txtComand.setText("Introduce un comando");
+                txtComand.setForeground(gray);
+                txtComand.requestFocusInWindow();
+            }
+        } else {
+            loginFrame.getAlert().getTitleLabel().setText("¡Atención!");
+            loginFrame.getAlert().getMessageLabel().setText("Por favor introduzca un comando");
+            loginFrame.getAlert().setVisible(true);
+            txtComand.requestFocusInWindow();
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -772,4 +772,5 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel titlePane;
     private javax.swing.JTextField txtComand;
     // End of variables declaration//GEN-END:variables
+
 }

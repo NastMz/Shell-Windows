@@ -1,6 +1,7 @@
-package com.osproject.shell.windows.main;
+package com.osproject.shell.client.core;
 
-import com.osproject.shell.windows.utils.Hasher;
+import com.osproject.shell.client.utils.ConsoleColors;
+import com.osproject.shell.client.utils.Hasher;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -46,8 +47,7 @@ public class Login {
 
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("client@windows~$ Failed to execute login request:");
-            ex.printStackTrace();
+            System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.RED + "Failed to execute login request" + ConsoleColors.RESET);
         }
     }
 }

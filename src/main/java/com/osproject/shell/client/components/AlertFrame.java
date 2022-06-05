@@ -1,4 +1,4 @@
-package com.osproject.shell.windows.components;
+package com.osproject.shell.client.components;
 
 import java.awt.Color;
 import javax.swing.JLabel;

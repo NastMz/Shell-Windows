@@ -1,6 +1,6 @@
-package com.osproject.shell.windows.utils;
+package com.osproject.shell.client.utils;
 
-import com.osproject.shell.windows.components.MainFrame;
+import com.osproject.shell.client.components.MainFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
