@@ -24,26 +24,16 @@ public class Login {
         try {
             Hasher hasher = new Hasher();
 
-            String hashedPassword;
-            String request;
+            String hashedPassword = hasher.hash(password);
+            String request = userName + ":" + hashedPassword;
 
-            DataOutputStream outputStream;
-
-            DataInputStream inputStream;
-
-            hashedPassword = hasher.hash(password);
-            request = userName + ":" + hashedPassword;
-
-            outputStream = new DataOutputStream(socket.getOutputStream());
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
             outputStream.writeUTF(request);
 
-            inputStream = new DataInputStream(socket.getInputStream());
+            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
 
             this.loginStatus = inputStream.readBoolean();
-
-            inputStream.close();
-            outputStream.close();
 
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

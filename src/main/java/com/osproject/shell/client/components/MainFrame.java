@@ -1,9 +1,9 @@
 package com.osproject.shell.client.components;
 
 import com.osproject.shell.client.core.Shell;
+import com.osproject.shell.client.utils.InterfaceColors;
 import com.osproject.shell.client.utils.PerformanceGraphics;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -19,18 +19,12 @@ public class MainFrame extends javax.swing.JFrame {
     private final LoginFrame loginFrame;
     private final PerformanceGraphics performance = new PerformanceGraphics(this);
     private HTMLDocument doc;
-    private Shell shell;
+    private final Shell shell;
 
     private int xMouse;
     private int yMouse;
-    private final Color red = new Color(220, 53, 69);
-    private final Color blue = new Color(9, 121, 176);
-    private final Color darkBlue = new Color(0, 65, 115);
-    private final Color gray = new Color(204, 204, 204);
-    private final Color black = new Color(0, 0, 0);
-    private final Color blueOption = new Color(22, 75, 115);
-    private final ImageIcon icon = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\play.png");
-    private final ImageIcon iconSelected = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\play_select.png");
+    private final ImageIcon icon = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\play.png");
+    private final ImageIcon iconSelected = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\play_select.png");
 
     /**
      * Creates new form MainFrame
@@ -38,7 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
-        if (loginFrame.getLogin().isLogin()) {
+        this.shell = new Shell(this.loginFrame);
+        if (this.loginFrame.getLogin().isLogin()) {
 
             this.setUndecorated(true);
 
@@ -47,31 +42,31 @@ public class MainFrame extends javax.swing.JFrame {
             jScrollPane1.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
                 @Override
                 protected void configureScrollBarColors() {
-                    this.thumbColor = blue;
+                    this.thumbColor = InterfaceColors.BLUE;
                 }
             });
 
             this.setLocationRelativeTo(null);
 
-            ChartPanel d = performance.createPaneDrive();
-            ChartPanel p = performance.createPaneProccesor();
-            ChartPanel r = performance.createPaneRam();
+            ChartPanel driveChartPanel = performance.createPaneDrive();
+            ChartPanel procecesorChartPanel = performance.createPaneProccesor();
+            ChartPanel ramChartPanel = performance.createPaneRam();
 
-            d.setPopupMenu(null);
-            d.setDomainZoomable(false);
-            d.setRangeZoomable(false);
+            driveChartPanel.setPopupMenu(null);
+            driveChartPanel.setDomainZoomable(false);
+            driveChartPanel.setRangeZoomable(false);
 
-            p.setPopupMenu(null);
-            p.setDomainZoomable(false);
-            p.setRangeZoomable(false);
+            procecesorChartPanel.setPopupMenu(null);
+            procecesorChartPanel.setDomainZoomable(false);
+            procecesorChartPanel.setRangeZoomable(false);
 
-            r.setPopupMenu(null);
-            r.setDomainZoomable(false);
-            r.setRangeZoomable(false);
+            ramChartPanel.setPopupMenu(null);
+            ramChartPanel.setDomainZoomable(false);
+            ramChartPanel.setRangeZoomable(false);
 
-            drivePane.add(d, BorderLayout.CENTER);
-            processorPane.add(p, BorderLayout.CENTER);
-            ramPane.add(r, BorderLayout.CENTER);
+            this.drivePanel.add(driveChartPanel, BorderLayout.CENTER);
+            this.processorPanel.add(procecesorChartPanel, BorderLayout.CENTER);
+            this.ramPanel.add(ramChartPanel, BorderLayout.CENTER);
 
             doc = (HTMLDocument) consoleArea.getDocument();
         }
@@ -96,10 +91,6 @@ public class MainFrame extends javax.swing.JFrame {
         titlePane = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         titleLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         optionOne = new javax.swing.JPanel();
         shellLabel = new javax.swing.JLabel();
         optionTwo = new javax.swing.JPanel();
@@ -123,9 +114,9 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         consoleArea = new javax.swing.JTextPane();
         performancePane = new javax.swing.JPanel();
-        processorPane = new javax.swing.JPanel();
-        ramPane = new javax.swing.JPanel();
-        drivePane = new javax.swing.JPanel();
+        processorPanel = new javax.swing.JPanel();
+        ramPanel = new javax.swing.JPanel();
+        drivePanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -234,20 +225,6 @@ public class MainFrame extends javax.swing.JFrame {
         titleLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         titlePane.add(titleLabel1);
 
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel16);
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel12);
-
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(jLabel18);
-
-        titlePane.add(jPanel2);
-
         sidePane.add(titlePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, 110));
 
         optionOne.setBackground(new java.awt.Color(22, 75, 115));
@@ -268,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
         shellLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         shellLabel.setForeground(new java.awt.Color(255, 255, 255));
         shellLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        shellLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\console.png")); // NOI18N
         shellLabel.setText("Shell");
         shellLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         optionOne.add(shellLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
@@ -292,6 +270,7 @@ public class MainFrame extends javax.swing.JFrame {
         performanceLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         performanceLabel.setForeground(new java.awt.Color(255, 255, 255));
         performanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        performanceLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\dashboard.png")); // NOI18N
         performanceLabel.setText("Rendimiento");
         optionTwo.add(performanceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
 
@@ -304,6 +283,7 @@ public class MainFrame extends javax.swing.JFrame {
         sectionLabel.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
         sectionLabel.setForeground(new java.awt.Color(255, 255, 255));
         sectionLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sectionLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\home.png")); // NOI18N
         sectionLabel.setText("Home");
 
         javax.swing.GroupLayout sectionPaneLayout = new javax.swing.GroupLayout(sectionPane);
@@ -459,6 +439,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnExecute.setLayout(new java.awt.BorderLayout());
 
         executeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        executeIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\play.png")); // NOI18N
         btnExecute.add(executeIcon, java.awt.BorderLayout.PAGE_START);
 
         shellPane.add(btnExecute, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 50));
@@ -499,14 +480,14 @@ public class MainFrame extends javax.swing.JFrame {
         performancePane.setBackground(new java.awt.Color(255, 255, 255));
         performancePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        processorPane.setLayout(new java.awt.BorderLayout());
-        performancePane.add(processorPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 415, 150));
+        processorPanel.setLayout(new java.awt.BorderLayout());
+        performancePane.add(processorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 415, 150));
 
-        ramPane.setLayout(new java.awt.BorderLayout());
-        performancePane.add(ramPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 415, 150));
+        ramPanel.setLayout(new java.awt.BorderLayout());
+        performancePane.add(ramPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 415, 150));
 
-        drivePane.setLayout(new java.awt.BorderLayout());
-        performancePane.add(drivePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 250, 250));
+        drivePanel.setLayout(new java.awt.BorderLayout());
+        performancePane.add(drivePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 250, 250));
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel13.setText("Ram:");
@@ -545,19 +526,19 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-        btnClose.setBackground(red);
+        btnClose.setBackground(InterfaceColors.RED);
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-        btnClose.setBackground(blue);
+        btnClose.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnMinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinMouseEntered
-        btnMin.setBackground(darkBlue);
+        btnMin.setBackground(InterfaceColors.DARK_BLUE);
     }//GEN-LAST:event_btnMinMouseEntered
 
     private void btnMinMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinMouseExited
-        btnMin.setBackground(blue);
+        btnMin.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_btnMinMouseExited
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
@@ -586,57 +567,57 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void titlePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titlePaneMouseClicked
         sectionLabel.setText("Home");
-        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\home.png");
+        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\home.png");
         sectionLabel.setIcon(ico);
-        optionOne.setBackground(blueOption);
-        optionTwo.setBackground(blueOption);
+        optionOne.setBackground(InterfaceColors.BLUE_OPTION);
+        optionTwo.setBackground(InterfaceColors.BLUE_OPTION);
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_titlePaneMouseClicked
 
     private void optionOneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionOneMouseEntered
-        optionOne.setBackground(blue);
+        optionOne.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_optionOneMouseEntered
 
     private void optionOneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionOneMouseExited
         if (jTabbedPane1.getSelectedIndex() != 1) {
-            optionOne.setBackground(blueOption);
+            optionOne.setBackground(InterfaceColors.BLUE_OPTION);
         }
     }//GEN-LAST:event_optionOneMouseExited
 
     private void optionTwoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionTwoMouseEntered
-        optionTwo.setBackground(blue);
+        optionTwo.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_optionTwoMouseEntered
 
     private void optionTwoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionTwoMouseExited
         if (jTabbedPane1.getSelectedIndex() != 2) {
-            optionTwo.setBackground(blueOption);
+            optionTwo.setBackground(InterfaceColors.BLUE_OPTION);
         }
     }//GEN-LAST:event_optionTwoMouseExited
 
     private void optionOneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionOneMouseClicked
         sectionLabel.setText("Shell");
-        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\console.png");
+        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\console.png");
         sectionLabel.setIcon(ico);
-        optionTwo.setBackground(blueOption);
-        optionOne.setBackground(blue);
+        optionTwo.setBackground(InterfaceColors.BLUE_OPTION);
+        optionOne.setBackground(InterfaceColors.BLUE);
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_optionOneMouseClicked
 
     private void optionTwoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionTwoMouseClicked
         txtComand.setText("Introduce un comando");
-        txtComand.setForeground(gray);
+        txtComand.setForeground(InterfaceColors.GRAY);
         sectionLabel.setText("Rendimiento");
-        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-windows\\src\\main\\java\\com\\osproject\\shell\\windows\\images\\dashboard.png");
+        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\client\\dashboard.png");
         sectionLabel.setIcon(ico);
-        optionOne.setBackground(blueOption);
-        optionTwo.setBackground(blue);
+        optionOne.setBackground(InterfaceColors.BLUE_OPTION);
+        optionTwo.setBackground(InterfaceColors.BLUE);
         jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_optionTwoMouseClicked
 
     private void txtComandKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComandKeyPressed
         if (txtComand.getText().equals("Introduce un comando")) {
             txtComand.setText("");
-            txtComand.setForeground(black);
+            txtComand.setForeground(InterfaceColors.BLACK);
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             commandExecute();
@@ -650,14 +631,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void txtComandMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtComandMousePressed
         if (txtComand.getText().equals("Introduce un comando")) {
             txtComand.setText("");
-            txtComand.setForeground(black);
+            txtComand.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtComandMousePressed
 
     private void txtComandFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtComandFocusLost
         if (txtComand.getText().isBlank()) {
             txtComand.setText("Introduce un comando");
-            txtComand.setForeground(gray);
+            txtComand.setForeground(InterfaceColors.GRAY);
         }
     }//GEN-LAST:event_txtComandFocusLost
 
@@ -677,7 +658,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void txtComandFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtComandFocusGained
         if (txtComand.getText().equals("Introduce un comando")) {
             txtComand.setText("");
-            txtComand.setForeground(black);
+            txtComand.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtComandFocusGained
 
@@ -697,6 +678,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (!txtComand.getText().isBlank() && !txtComand.getText().equals("Introduce un comando")) {
             if (txtComand.getText().equals("clr") || txtComand.getText().equals("clear")) {
                 consoleArea.setText("");
+                txtComand.setText("");
+                txtComand.setForeground(InterfaceColors.BLACK);
             } else {
                 btnExecute.requestFocusInWindow();
 
@@ -712,7 +695,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
 
                 txtComand.setText("Introduce un comando");
-                txtComand.setForeground(gray);
+                txtComand.setForeground(InterfaceColors.GRAY);
                 txtComand.requestFocusInWindow();
             }
         } else {
@@ -730,7 +713,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel btnMin;
     private javax.swing.JTextPane consoleArea;
     private javax.swing.JPanel contentPane;
-    private javax.swing.JPanel drivePane;
+    private javax.swing.JPanel drivePanel;
     private javax.swing.JLabel drivePercent;
     private javax.swing.JLabel executeIcon;
     private javax.swing.JPanel headBar;
@@ -738,12 +721,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -751,16 +731,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel optionOne;
     private javax.swing.JPanel optionTwo;
     private javax.swing.JLabel performanceLabel;
     private javax.swing.JPanel performancePane;
-    private javax.swing.JPanel processorPane;
+    private javax.swing.JPanel processorPanel;
     private javax.swing.JLabel processorPercent;
-    private javax.swing.JPanel ramPane;
+    private javax.swing.JPanel ramPanel;
     private javax.swing.JLabel ramPercent;
     private javax.swing.JLabel sectionLabel;
     private javax.swing.JPanel sectionPane;

@@ -1,21 +1,14 @@
 package com.osproject.shell.client.components;
 
-import java.awt.Color;
+import com.osproject.shell.client.utils.InterfaceColors;
 import javax.swing.JLabel;
 
 public class AlertFrame extends javax.swing.JFrame {
 
     private final LoginFrame loginFrame;
-    private boolean isMainOpen = false;
 
     private int xMouse;
     private int yMouse;
-    private final Color red = new Color(220, 53, 69);
-    private final Color white = new Color(255, 255, 255);
-    private final Color blue = new Color(9, 121, 176);
-    private final Color darkBlue = new Color(0, 65, 115);
-    private final Color gray = new Color(204, 204, 204);
-    private final Color black = new Color(0, 0, 0);
 
     /**
      * Creates new form AlertFrame
@@ -228,18 +221,18 @@ public class AlertFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcceptMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcceptMouseEntered
-        btnAccept.setBackground(darkBlue);
+        btnAccept.setBackground(InterfaceColors.DARK_BLUE);
     }//GEN-LAST:event_btnAcceptMouseEntered
 
     private void btnAcceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcceptMouseClicked
         this.setVisible(false);
-        if (!isMainOpen) {
+        if (this.loginFrame.getLogin().isLogin()) {
             openMain();
         }
     }//GEN-LAST:event_btnAcceptMouseClicked
 
     private void btnAcceptMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcceptMouseExited
-        btnAccept.setBackground(blue);
+        btnAccept.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_btnAcceptMouseExited
 
     private void headBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headBarMousePressed
@@ -255,17 +248,17 @@ public class AlertFrame extends javax.swing.JFrame {
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
         btnClose.setOpaque(true);
-        closeLabel.setForeground(white);
+        closeLabel.setForeground(InterfaceColors.WHITE);
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
         btnClose.setOpaque(false);
-        closeLabel.setForeground(red);
+        closeLabel.setForeground(InterfaceColors.RED);
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         this.setVisible(false);
-        if (!isMainOpen) {
+        if (this.loginFrame.getLogin().isLogin()) {
             openMain();
         }
     }//GEN-LAST:event_btnCloseMouseClicked
@@ -279,14 +272,10 @@ public class AlertFrame extends javax.swing.JFrame {
     }
 
     private void openMain() {
-        if (loginFrame.getLogin().isLogin()) {
-            isMainOpen = true;
-            loginFrame.setVisible(false);
-            MainFrame main = new MainFrame(loginFrame);
-            main.setLocationRelativeTo(this);
-            main.setVisible(true);
-        }
-
+        loginFrame.setVisible(false);
+        MainFrame main = new MainFrame(loginFrame);
+        main.setLocationRelativeTo(this);
+        main.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

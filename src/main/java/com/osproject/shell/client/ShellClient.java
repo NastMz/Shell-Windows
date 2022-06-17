@@ -1,5 +1,4 @@
 
-
 import com.osproject.shell.client.components.LoginFrame;
 import com.osproject.shell.client.utils.ConsoleColors;
 import java.io.IOException;
@@ -20,10 +19,9 @@ public class ShellClient {
         while (socket == null) {
             try {
                 System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.CYAN + "Establishing connection to server..." + ConsoleColors.RESET);
-                IP = InetAddress.getByName("192.168.100.192");
+                IP = InetAddress.getLocalHost();
                 socket = new Socket(IP, port);
                 System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.GREEN + "Connection to server established" + ConsoleColors.RESET);
-
             } catch (UnknownHostException ex) {
                 Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -31,6 +29,7 @@ public class ShellClient {
                 System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.RED + "Could not connect to server" + ConsoleColors.RESET);
                 System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.PURPLE + "Trying to connect again..." + ConsoleColors.RESET);
             }
+
         }
 
         return socket;

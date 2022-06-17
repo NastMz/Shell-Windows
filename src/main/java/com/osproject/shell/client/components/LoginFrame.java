@@ -1,8 +1,10 @@
 package com.osproject.shell.client.components;
 
 import com.osproject.shell.client.core.Login;
-import java.awt.Color;
+import com.osproject.shell.client.utils.InterfaceColors;
+import com.osproject.shell.client.utils.ConsoleColors;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,13 +15,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private final AlertFrame alert = new AlertFrame(this);
     private int xMouse;
     private int yMouse;
-    private final Color red = new Color(220, 53, 69);
-
-    private final Color blue = new Color(9, 121, 176);
-    private final Color darkBlue = new Color(0, 65, 115);
-    private final Color gray = new Color(204, 204, 204);
-    private final Color black = new Color(0, 0, 0);
-
     private Socket socket;
 
     /**
@@ -338,7 +333,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-        btnLogin.setBackground(darkBlue);
+        btnLogin.setBackground(InterfaceColors.DARK_BLUE);
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void headBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headBarMousePressed
@@ -362,25 +357,25 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        btnExit.setBackground(red);
+        btnExit.setBackground(InterfaceColors.RED);
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        btnExit.setBackground(blue);
+        btnExit.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_btnExitMouseExited
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
-        btnLogin.setBackground(blue);
+        btnLogin.setBackground(InterfaceColors.BLUE);
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
         if (String.valueOf(txtPassword.getPassword()).equals("********")) {
             txtPassword.setText("");
-            txtPassword.setForeground(black);
+            txtPassword.setForeground(InterfaceColors.BLACK);
         }
         if (txtUserName.getText().isBlank()) {
             txtUserName.setText("Ingrese su nombre de usuario");
-            txtUserName.setForeground(gray);
+            txtUserName.setForeground(InterfaceColors.GRAY);
         }
     }//GEN-LAST:event_txtPasswordMousePressed
 
@@ -390,10 +385,6 @@ public class LoginFrame extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword.getPassword());
 
         alert.setLocationRelativeTo(this);
-
-        System.out.println("client@windows~$ Sending login request...");
-        login.login(socket, userName, password);
-        System.out.println("client@windows~$ Login request response received");
 
         if (userName.equals("Ingrese su nombre de usuario") || userName.isBlank()) {
             alert.getTitleLabel().setText("¡Atención!");
@@ -405,14 +396,32 @@ public class LoginFrame extends javax.swing.JFrame {
             alert.getMessageLabel().setText("Por favor introduzca una contraseña");
             alert.setVisible(true);
             txtPassword.requestFocusInWindow();
-        } else if (!login.isLogin()) {
-            alert.getTitleLabel().setText("¡Atención!");
-            alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
-            alert.setVisible(true);
         } else {
-            alert.getTitleLabel().setText("¡Buen Trabajo!");
-            alert.getMessageLabel().setText("Sesión iniciada correctamente");
-            alert.setVisible(true);
+            System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.CYAN + "Sending login request..." + ConsoleColors.RESET);
+            login.login(socket, userName, password);
+            System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.GREEN + "Login request response received" + ConsoleColors.RESET);
+
+            if (!login.isLogin()) {
+                System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.RED + "Login request failed" + ConsoleColors.RESET);
+                alert.getTitleLabel().setText("¡Atención!");
+                alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
+                alert.setVisible(true);
+                InetAddress IP = this.socket.getInetAddress();
+                int port = this.socket.getPort();
+
+                try {
+                    this.socket.close();
+                    this.socket = new Socket(IP, port);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.GREEN + "Login request success" + ConsoleColors.RESET);
+                alert.getTitleLabel().setText("¡Buen Trabajo!");
+                alert.getMessageLabel().setText("Sesión iniciada correctamente");
+                alert.setVisible(true);
+            }
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 
@@ -423,39 +432,39 @@ public class LoginFrame extends javax.swing.JFrame {
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
         if (txtUserName.getText().equals("Ingrese su nombre de usuario")) {
             txtUserName.setText("");
-            txtUserName.setForeground(black);
+            txtUserName.setForeground(InterfaceColors.BLACK);
         }
         if (String.valueOf(txtPassword.getPassword()).isBlank()) {
             txtPassword.setText("********");
-            txtPassword.setForeground(gray);
+            txtPassword.setForeground(InterfaceColors.GRAY);
         }
     }//GEN-LAST:event_txtUserNameMousePressed
 
     private void txtUserNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyPressed
         if (txtUserName.getText().equals("Ingrese su nombre de usuario")) {
             txtUserName.setText("");
-            txtUserName.setForeground(black);
+            txtUserName.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtUserNameKeyPressed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (String.valueOf(txtPassword.getPassword()).equals("********")) {
             txtPassword.setText("");
-            txtPassword.setForeground(black);
+            txtPassword.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
     private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
         if (String.valueOf(txtPassword.getPassword()).equals("********")) {
             txtPassword.setText("");
-            txtPassword.setForeground(black);
+            txtPassword.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtPasswordFocusGained
 
     private void txtUserNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusGained
         if (txtUserName.getText().equals("Ingrese su nombre de usuario")) {
             txtUserName.setText("");
-            txtUserName.setForeground(black);
+            txtUserName.setForeground(InterfaceColors.BLACK);
         }
     }//GEN-LAST:event_txtUserNameFocusGained
 
@@ -469,6 +478,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 
     /**
