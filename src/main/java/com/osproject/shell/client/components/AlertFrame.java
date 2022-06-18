@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 public class AlertFrame extends javax.swing.JFrame {
 
     private final LoginFrame loginFrame;
+    private boolean isMainOpen;
 
     private int xMouse;
     private int yMouse;
@@ -15,6 +16,7 @@ public class AlertFrame extends javax.swing.JFrame {
      */
     public AlertFrame(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
+        this.isMainOpen = false;
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -226,7 +228,7 @@ public class AlertFrame extends javax.swing.JFrame {
 
     private void btnAcceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcceptMouseClicked
         this.setVisible(false);
-        if (this.loginFrame.getLogin().isLogin()) {
+        if (this.loginFrame.getLogin().isLogin() && !isMainOpen) {
             openMain();
         }
     }//GEN-LAST:event_btnAcceptMouseClicked
@@ -258,7 +260,7 @@ public class AlertFrame extends javax.swing.JFrame {
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         this.setVisible(false);
-        if (this.loginFrame.getLogin().isLogin()) {
+        if (this.loginFrame.getLogin().isLogin() && !isMainOpen) {
             openMain();
         }
     }//GEN-LAST:event_btnCloseMouseClicked
@@ -276,6 +278,7 @@ public class AlertFrame extends javax.swing.JFrame {
         MainFrame main = new MainFrame(loginFrame);
         main.setLocationRelativeTo(this);
         main.setVisible(true);
+        this.isMainOpen = true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

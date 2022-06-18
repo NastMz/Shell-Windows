@@ -2,6 +2,7 @@ package com.osproject.shell.client.core;
 
 import com.osproject.shell.client.utils.ConsoleColors;
 import com.osproject.shell.client.utils.Hasher;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
@@ -25,7 +26,7 @@ public class Login {
             Hasher hasher = new Hasher();
 
             String hashedPassword = hasher.hash(password);
-            String request = userName + ":" + hashedPassword;
+            String request = "1::" + userName + ":" + hashedPassword;
 
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
 
