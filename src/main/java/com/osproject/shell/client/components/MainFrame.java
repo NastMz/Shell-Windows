@@ -411,11 +411,6 @@ public class MainFrame extends javax.swing.JFrame {
                 txtComandMousePressed(evt);
             }
         });
-        txtComand.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtComandActionPerformed(evt);
-            }
-        });
         txtComand.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtComandKeyPressed(evt);
@@ -543,7 +538,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         try {
-            loginFrame.getSocket().close();
+            this.loginFrame.getDataOutputStream().writeUTF("0");
+            this.loginFrame.getSocket().close();
+            this.loginFrame.getDataOutputStream().close();
+            this.loginFrame.getDataInputStream().close();
+            System.exit(0);
         } catch (IOException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -624,10 +623,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtComandKeyPressed
 
-    private void txtComandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComandActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtComandActionPerformed
-
     private void txtComandMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtComandMousePressed
         if (txtComand.getText().equals("Introduce un comando")) {
             txtComand.setText("");
@@ -643,7 +638,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtComandFocusLost
 
     private void btnExecuteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExecuteMouseClicked
-
         commandExecute();
     }//GEN-LAST:event_btnExecuteMouseClicked
 
@@ -683,10 +677,19 @@ public class MainFrame extends javax.swing.JFrame {
             } else {
                 btnExecute.requestFocusInWindow();
 
+                String[] data = shell.executeCommand(txtComand.getText()).split(":///:");
+
                 String text = "<font color='#0979B0' face='roboto'>client@windows~$ </font>"
                         + "<font color='#999999' face='roboto'>" + txtComand.getText() + "</font><br>"
-                        + "<font color='#004173' face='roboto'>server@linux~$ </font>"
-                        + "<font color='#000000' face='roboto'>" + shell.executeCommand(txtComand.getText()) + "</font><br>";
+                        + "<font color='#004173' face='roboto'>server@linux~$ </font>";
+
+                if (!(data.length > 0)) {
+                    text += "<br>";
+                }
+
+                for (String line: data){
+                    text += "<font color='#000000' face='roboto'>" + line + "</font><br>";
+                }
 
                 try {
                     doc.insertAfterEnd(doc.getCharacterElement(doc.getLength()), text);
