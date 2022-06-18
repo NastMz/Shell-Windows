@@ -24,3 +24,5 @@ hs_err_pid*
 .idea/*
 /target/
 /shell-server/target/
+/out/
+src/main/java/META-INF/MANIFEST.MF

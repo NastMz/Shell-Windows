@@ -175,11 +175,6 @@ public class LoginFrame extends javax.swing.JFrame {
                 txtUserNameMousePressed(evt);
             }
         });
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
-            }
-        });
         txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUserNameKeyPressed(evt);
@@ -397,12 +392,11 @@ public class LoginFrame extends javax.swing.JFrame {
             alert.setVisible(true);
             txtPassword.requestFocusInWindow();
         } else {
-            System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.CYAN + "Sending login request..." + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.CYAN + "Sending login request..." + ConsoleColors.RESET);
             login.login(socket, userName, password);
-            System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.GREEN + "Login request response received" + ConsoleColors.RESET);
 
             if (!login.isLogin()) {
-                System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.RED + "Login request failed" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.RED + "Login request failed" + ConsoleColors.RESET);
                 alert.getTitleLabel().setText("¡Atención!");
                 alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
                 alert.setVisible(true);
@@ -417,17 +411,13 @@ public class LoginFrame extends javax.swing.JFrame {
                 }
 
             } else {
-                System.out.println(ConsoleColors.BLUE + "client@windows~$" + ConsoleColors.GREEN + "Login request success" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.GREEN + "Login request success" + ConsoleColors.RESET);
                 alert.getTitleLabel().setText("¡Buen Trabajo!");
                 alert.getMessageLabel().setText("Sesión iniciada correctamente");
                 alert.setVisible(true);
             }
         }
     }//GEN-LAST:event_btnLoginMouseClicked
-
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
         if (txtUserName.getText().equals("Ingrese su nombre de usuario")) {
