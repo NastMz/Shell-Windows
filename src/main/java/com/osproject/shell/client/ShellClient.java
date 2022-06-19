@@ -1,7 +1,6 @@
 
 import com.osproject.shell.client.components.LoginFrame;
 import com.osproject.shell.client.utils.ConsoleColors;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,11 +20,11 @@ public class ShellClient {
 
         int port = 2704;
         InetAddress IP;
-
+        
         while (socket == null) {
             try {
                 System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.CYAN + "Establishing connection to server..." + ConsoleColors.RESET);
-                IP = InetAddress.getLocalHost();
+                IP = InetAddress.getByName("192.168.0.103");
                 this.socket = new Socket(IP, port);
                 this.dataInputStream = new DataInputStream(socket.getInputStream());
                 this.dataOutputStream = new DataOutputStream(socket.getOutputStream());

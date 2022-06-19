@@ -1,13 +1,12 @@
 package com.osproject.shell.client.components;
 
 import com.osproject.shell.client.core.Login;
-import com.osproject.shell.client.utils.InterfaceColors;
 import com.osproject.shell.client.utils.ConsoleColors;
-
+import com.osproject.shell.client.utils.InterfaceColors;
+import java.awt.event.KeyEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,11 +93,9 @@ public class LoginFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExitMouseClicked(evt);
             }
-
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExitMouseEntered(evt);
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnExitMouseExited(evt);
             }
@@ -136,12 +133,12 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 240, Short.MAX_VALUE)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 2, Short.MAX_VALUE)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
         );
 
         loginFormPane.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 240, 2));
@@ -155,12 +152,12 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
-                jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 240, Short.MAX_VALUE)
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
-                jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 2, Short.MAX_VALUE)
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
         );
 
         loginFormPane.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 240, 2));
@@ -220,11 +217,9 @@ public class LoginFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
             }
-
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLoginMouseEntered(evt);
             }
-
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnLoginMouseExited(evt);
             }
@@ -240,12 +235,12 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout btnLoginLayout = new javax.swing.GroupLayout(btnLogin);
         btnLogin.setLayout(btnLoginLayout);
         btnLoginLayout.setHorizontalGroup(
-                btnLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+            btnLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
         btnLoginLayout.setVerticalGroup(
-                btnLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            btnLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         loginFormPane.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 110, 40));
@@ -290,19 +285,19 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 330, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 110, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 110, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         welcomeMessagePane.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
@@ -314,12 +309,12 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout sidePaneLayout = new javax.swing.GroupLayout(sidePane);
         sidePane.setLayout(sidePaneLayout);
         sidePaneLayout.setHorizontalGroup(
-                sidePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 310, Short.MAX_VALUE)
+            sidePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
         sidePaneLayout.setVerticalGroup(
-                sidePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 390, Short.MAX_VALUE)
+            sidePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
         );
 
         contentPane.add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 310, 390));
@@ -327,12 +322,12 @@ public class LoginFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -390,39 +385,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordMousePressed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-
-        String userName = txtUserName.getText();
-        String password = String.valueOf(txtPassword.getPassword());
-
-        alert.setLocationRelativeTo(this);
-
-        if (userName.equals("Ingrese su nombre de usuario") || userName.isBlank()) {
-            alert.getTitleLabel().setText("¡Atención!");
-            alert.getMessageLabel().setText("Por favor introduzca un usuario");
-            alert.setVisible(true);
-            txtUserName.requestFocusInWindow();
-        } else if (password.equals("********") || password.isBlank()) {
-            alert.getTitleLabel().setText("¡Atención!");
-            alert.getMessageLabel().setText("Por favor introduzca una contraseña");
-            alert.setVisible(true);
-            txtPassword.requestFocusInWindow();
-        } else {
-            System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.CYAN + "Sending login request..." + ConsoleColors.RESET);
-            login.login(socket, userName, password);
-
-            if (!login.isLogin()) {
-                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.RED + "Login request failed" + ConsoleColors.RESET);
-                alert.getTitleLabel().setText("¡Atención!");
-                alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
-                alert.setVisible(true);
-                restartConnection();
-            } else {
-                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.GREEN + "Login request success" + ConsoleColors.RESET);
-                alert.getTitleLabel().setText("¡Buen Trabajo!");
-                alert.getMessageLabel().setText("Sesión iniciada correctamente");
-                alert.setVisible(true);
-            }
-        }
+        login();
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void txtUserNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMousePressed
@@ -441,12 +404,18 @@ public class LoginFrame extends javax.swing.JFrame {
             txtUserName.setText("");
             txtUserName.setForeground(InterfaceColors.BLACK);
         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
     }//GEN-LAST:event_txtUserNameKeyPressed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (String.valueOf(txtPassword.getPassword()).equals("********")) {
             txtPassword.setText("");
             txtPassword.setForeground(InterfaceColors.BLACK);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
@@ -484,18 +453,38 @@ public class LoginFrame extends javax.swing.JFrame {
         return dataInputStream;
     }
 
-    public void restartConnection() {
-        int port = this.socket.getPort();
-        InetAddress ip = this.socket.getInetAddress();
-        try {
-            this.socket.close();
-            this.socket = new Socket(ip, port);
-            this.dataOutputStream = new DataOutputStream(this.socket.getOutputStream());
-            this.dataInputStream = new DataInputStream(this.socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void login() {
+        String userName = txtUserName.getText();
+        String password = String.valueOf(txtPassword.getPassword());
 
+        alert.setLocationRelativeTo(this);
+
+        if (userName.equals("Ingrese su nombre de usuario") || userName.isBlank()) {
+            alert.getTitleLabel().setText("¡Atención!");
+            alert.getMessageLabel().setText("Por favor introduzca un usuario");
+            alert.setVisible(true);
+            txtUserName.requestFocusInWindow();
+        } else if (password.equals("********") || password.isBlank()) {
+            alert.getTitleLabel().setText("¡Atención!");
+            alert.getMessageLabel().setText("Por favor introduzca una contraseña");
+            alert.setVisible(true);
+            txtPassword.requestFocusInWindow();
+        } else {
+            System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.CYAN + "Sending login request..." + ConsoleColors.RESET);
+            login.login(socket, userName, password);
+
+            if (!login.isLogin()) {
+                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.RED + "Login request failed" + ConsoleColors.RESET);
+                alert.getTitleLabel().setText("¡Atención!");
+                alert.getMessageLabel().setText("Usuario y/o contraseña incorrectos");
+                alert.setVisible(true);
+            } else {
+                System.out.println(ConsoleColors.BLUE + "client@windows~$ " + ConsoleColors.GREEN + "Login request success" + ConsoleColors.RESET);
+                alert.getTitleLabel().setText("¡Buen Trabajo!");
+                alert.getMessageLabel().setText("Sesión iniciada correctamente");
+                alert.setVisible(true);
+            }
+        }
     }
 
     /**

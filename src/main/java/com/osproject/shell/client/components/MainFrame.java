@@ -1,14 +1,16 @@
 package com.osproject.shell.client.components;
 
+import com.osproject.shell.client.core.PerformanceGraphics;
+import com.osproject.shell.client.core.ProcessesTable;
 import com.osproject.shell.client.core.Shell;
 import com.osproject.shell.client.utils.InterfaceColors;
-import com.osproject.shell.client.utils.PerformanceGraphics;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
@@ -17,7 +19,7 @@ import org.jfree.chart.ChartPanel;
 public class MainFrame extends javax.swing.JFrame {
 
     private final LoginFrame loginFrame;
-    private final PerformanceGraphics performance = new PerformanceGraphics(this);
+    private final PerformanceGraphics performanceGraphics;
     private HTMLDocument doc;
     private final Shell shell;
 
@@ -33,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;
         this.shell = new Shell(this.loginFrame);
+        this.performanceGraphics = new PerformanceGraphics(this, this.loginFrame);
         if (this.loginFrame.getLogin().isLogin()) {
 
             this.setUndecorated(true);
@@ -48,9 +51,9 @@ public class MainFrame extends javax.swing.JFrame {
 
             this.setLocationRelativeTo(null);
 
-            ChartPanel driveChartPanel = performance.createPaneDrive();
-            ChartPanel procecesorChartPanel = performance.createPaneProccesor();
-            ChartPanel ramChartPanel = performance.createPaneRam();
+            ChartPanel driveChartPanel = performanceGraphics.createPanelDrive();
+            ChartPanel procecesorChartPanel = performanceGraphics.createPanelProccesor();
+            ChartPanel ramChartPanel = performanceGraphics.createPanelRam();
 
             driveChartPanel.setPopupMenu(null);
             driveChartPanel.setDomainZoomable(false);
@@ -69,6 +72,9 @@ public class MainFrame extends javax.swing.JFrame {
             this.ramPanel.add(ramChartPanel, BorderLayout.CENTER);
 
             doc = (HTMLDocument) consoleArea.getDocument();
+            this.processesTable.getTableHeader().setBackground(InterfaceColors.BLUE);
+            new ProcessesTable(this, this.loginFrame).createProcessesTable();
+
         }
     }
 
@@ -95,10 +101,12 @@ public class MainFrame extends javax.swing.JFrame {
         shellLabel = new javax.swing.JLabel();
         optionTwo = new javax.swing.JPanel();
         performanceLabel = new javax.swing.JLabel();
+        optionThree = new javax.swing.JPanel();
+        processesLabel = new javax.swing.JLabel();
         sectionPane = new javax.swing.JPanel();
         sectionLabel = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        homePane = new javax.swing.JPanel();
+        homePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -106,14 +114,17 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        shellPane = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        shellPanel = new javax.swing.JPanel();
         txtComand = new javax.swing.JTextField();
         btnExecute = new javax.swing.JPanel();
-        executeIcon = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         consoleArea = new javax.swing.JTextPane();
-        performancePane = new javax.swing.JPanel();
+        executeIcon = new javax.swing.JLabel();
+        performancePanel = new javax.swing.JPanel();
         processorPanel = new javax.swing.JPanel();
         ramPanel = new javax.swing.JPanel();
         drivePanel = new javax.swing.JPanel();
@@ -123,6 +134,9 @@ public class MainFrame extends javax.swing.JFrame {
         ramPercent = new javax.swing.JLabel();
         drivePercent = new javax.swing.JLabel();
         processorPercent = new javax.swing.JLabel();
+        processesPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        processesTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -168,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("-");
         btnMin.add(jLabel4, java.awt.BorderLayout.CENTER);
 
-        headBar.add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 40, 20));
+        headBar.add(btnMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 0, 40, 20));
 
         btnClose.setBackground(new java.awt.Color(9, 121, 176));
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -191,9 +205,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("X");
         btnClose.add(jLabel2, java.awt.BorderLayout.CENTER);
 
-        headBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 40, 20));
+        headBar.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 40, 20));
 
-        contentPane.add(headBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 20));
+        contentPane.add(headBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 20));
 
         sidePane.setBackground(new java.awt.Color(0, 65, 115));
         sidePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -276,6 +290,30 @@ public class MainFrame extends javax.swing.JFrame {
 
         sidePane.add(optionTwo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 220, 58));
 
+        optionThree.setBackground(new java.awt.Color(22, 75, 115));
+        optionThree.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        optionThree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                optionThreeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                optionThreeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                optionThreeMouseExited(evt);
+            }
+        });
+        optionThree.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        processesLabel.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        processesLabel.setForeground(new java.awt.Color(255, 255, 255));
+        processesLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        processesLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\linux-client.png")); // NOI18N
+        processesLabel.setText("Procesos");
+        optionThree.add(processesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 200, 60));
+
+        sidePane.add(optionThree, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 220, 58));
+
         contentPane.add(sidePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 550));
 
         sectionPane.setBackground(new java.awt.Color(9, 121, 176));
@@ -293,7 +331,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(sectionPaneLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(sectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addContainerGap(511, Short.MAX_VALUE))
         );
         sectionPaneLayout.setVerticalGroup(
             sectionPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,9 +341,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        contentPane.add(sectionPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 0, 740, 80));
+        contentPane.add(sectionPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 0, 940, 80));
 
-        homePane.setBackground(new java.awt.Color(255, 255, 255));
+        homePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 65, 115));
@@ -345,33 +383,59 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel11.setText("¡Esperamos que sea util para ti!");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        javax.swing.GroupLayout homePaneLayout = new javax.swing.GroupLayout(homePane);
-        homePane.setLayout(homePaneLayout);
-        homePaneLayout.setHorizontalGroup(
-            homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePaneLayout.createSequentialGroup()
+        jLabel12.setFont(new java.awt.Font("Roboto", 0, 20)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("- Ver los procesos que se están ejecutando.");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        jLabel3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel3.setText("© 2021 Sistema Shell Windows Linux - Proyecto Sistemas Operativos");
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel5.setText("Kevin Santiago Martinez - Joshep Mateo Granda");
+
+        javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
+        homePanel.setLayout(homePanelLayout);
+        homePanelLayout.setHorizontalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePaneLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePaneLayout.createSequentialGroup()
-                        .addGroup(homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
-            .addGroup(homePaneLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(homePanelLayout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(homePanelLayout.createSequentialGroup()
+                                .addGap(335, 335, 335)
+                                .addComponent(jLabel5)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(271, 271, 271))))
         );
-        homePaneLayout.setVerticalGroup(
-            homePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePaneLayout.createSequentialGroup()
+        homePanelLayout.setVerticalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -380,19 +444,25 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel10)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel11)
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(20, 20, 20))
         );
 
-        jTabbedPane1.addTab("Home", homePane);
+        jTabbedPane1.addTab("Home", homePanel);
 
-        shellPane.setBackground(new java.awt.Color(255, 255, 255));
-        shellPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        shellPanel.setBackground(new java.awt.Color(255, 255, 255));
+        shellPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtComand.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtComand.setForeground(new java.awt.Color(204, 204, 204));
@@ -416,7 +486,7 @@ public class MainFrame extends javax.swing.JFrame {
                 txtComandKeyPressed(evt);
             }
         });
-        shellPane.add(txtComand, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 630, 50));
+        shellPanel.add(txtComand, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 830, 50));
 
         btnExecute.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExecute.setOpaque(false);
@@ -432,12 +502,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         btnExecute.setLayout(new java.awt.BorderLayout());
-
-        executeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        executeIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\play.png")); // NOI18N
-        btnExecute.add(executeIcon, java.awt.BorderLayout.PAGE_START);
-
-        shellPane.add(btnExecute, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 50));
+        shellPanel.add(btnExecute, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 50));
 
         jPanel1.setBackground(new java.awt.Color(9, 121, 176));
 
@@ -445,14 +510,15 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGap(0, 830, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        shellPane.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 630, 2));
+        shellPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 830, 2));
+        jPanel1.getAccessibleContext().setAccessibleName("");
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -468,54 +534,103 @@ public class MainFrame extends javax.swing.JFrame {
         consoleArea.setFocusable(false);
         jScrollPane1.setViewportView(consoleArea);
 
-        shellPane.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 98, 690, 360));
+        shellPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 98, 890, 360));
 
-        jTabbedPane1.addTab("Shell", shellPane);
+        executeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        executeIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\play.png")); // NOI18N
+        shellPanel.add(executeIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 60, -1));
 
-        performancePane.setBackground(new java.awt.Color(255, 255, 255));
-        performancePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTabbedPane1.addTab("Shell", shellPanel);
+
+        performancePanel.setBackground(new java.awt.Color(255, 255, 255));
+        performancePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         processorPanel.setLayout(new java.awt.BorderLayout());
-        performancePane.add(processorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 415, 150));
+        performancePanel.add(processorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 520, 170));
 
         ramPanel.setLayout(new java.awt.BorderLayout());
-        performancePane.add(ramPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 415, 150));
+        performancePanel.add(ramPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 520, 170));
 
         drivePanel.setLayout(new java.awt.BorderLayout());
-        performancePane.add(drivePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 250, 250));
+        performancePanel.add(drivePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 290, 280));
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel13.setText("Ram:");
-        performancePane.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 109, -1));
+        performancePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 242, 109, 30));
 
         jLabel14.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel14.setText("Disco:");
-        performancePane.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 130, 30));
+        performancePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 130, 30));
 
         jLabel15.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel15.setText("Procesador:");
-        performancePane.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 109, 20));
+        performancePanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 109, 30));
 
         ramPercent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         ramPercent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ramPercent.setText("100%");
-        performancePane.add(ramPercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 40, -1));
+        performancePanel.add(ramPercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 40, -1));
 
         drivePercent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         drivePercent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         drivePercent.setText("100%");
-        performancePane.add(drivePercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 110, 30, -1));
+        performancePanel.add(drivePercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, 40, -1));
 
         processorPercent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         processorPercent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         processorPercent.setText("100%");
-        performancePane.add(processorPercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 30, -1));
+        performancePanel.add(processorPercent, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 40, -1));
 
-        jTabbedPane1.addTab("Performance", performancePane);
+        jTabbedPane1.addTab("Performance", performancePanel);
 
-        contentPane.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 730, 510));
+        processesPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        getContentPane().add(contentPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 550));
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(9, 121, 176)));
+
+        processesTable.setAutoCreateRowSorter(true);
+        processesTable.setBackground(new java.awt.Color(255, 255, 255));
+        processesTable.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        processesTable.setForeground(new java.awt.Color(0, 0, 0));
+        processesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        processesTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        processesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        processesTable.setGridColor(new java.awt.Color(255, 255, 255));
+        processesTable.setRowSelectionAllowed(false);
+        processesTable.setShowGrid(false);
+        processesTable.getTableHeader().setResizingAllowed(false);
+        processesTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(processesTable);
+
+        javax.swing.GroupLayout processesPanelLayout = new javax.swing.GroupLayout(processesPanel);
+        processesPanel.setLayout(processesPanelLayout);
+        processesPanelLayout.setHorizontalGroup(
+            processesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(processesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        processesPanelLayout.setVerticalGroup(
+            processesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, processesPanelLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("ProcessesPane", processesPanel);
+
+        contentPane.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 930, 510));
+
+        getContentPane().add(contentPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -598,6 +713,7 @@ public class MainFrame extends javax.swing.JFrame {
         ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\console.png");
         sectionLabel.setIcon(ico);
         optionTwo.setBackground(InterfaceColors.BLUE_OPTION);
+        optionThree.setBackground(InterfaceColors.BLUE_OPTION);
         optionOne.setBackground(InterfaceColors.BLUE);
         jTabbedPane1.setSelectedIndex(1);
     }//GEN-LAST:event_optionOneMouseClicked
@@ -606,9 +722,10 @@ public class MainFrame extends javax.swing.JFrame {
         txtComand.setText("Introduce un comando");
         txtComand.setForeground(InterfaceColors.GRAY);
         sectionLabel.setText("Rendimiento");
-        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\client\\dashboard.png");
+        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\dashboard.png");
         sectionLabel.setIcon(ico);
         optionOne.setBackground(InterfaceColors.BLUE_OPTION);
+        optionThree.setBackground(InterfaceColors.BLUE_OPTION);
         optionTwo.setBackground(InterfaceColors.BLUE);
         jTabbedPane1.setSelectedIndex(2);
     }//GEN-LAST:event_optionTwoMouseClicked
@@ -656,6 +773,26 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtComandFocusGained
 
+    private void optionThreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionThreeMouseClicked
+        sectionLabel.setText("Processes");
+        ImageIcon ico = new ImageIcon("C:\\Users\\ksmar\\OneDrive\\Documentos\\NetBeansProjects\\shell-client\\src\\main\\java\\com\\osproject\\shell\\client\\images\\linux-client.png");
+        sectionLabel.setIcon(ico);
+        optionOne.setBackground(InterfaceColors.BLUE_OPTION);
+        optionTwo.setBackground(InterfaceColors.BLUE_OPTION);
+        optionThree.setBackground(InterfaceColors.BLUE);
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_optionThreeMouseClicked
+
+    private void optionThreeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionThreeMouseEntered
+        optionThree.setBackground(InterfaceColors.BLUE);
+    }//GEN-LAST:event_optionThreeMouseEntered
+
+    private void optionThreeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_optionThreeMouseExited
+        if (jTabbedPane1.getSelectedIndex() != 3) {
+            optionThree.setBackground(InterfaceColors.BLUE_OPTION);
+        }
+    }//GEN-LAST:event_optionThreeMouseExited
+
     public void setDrivePercent(String percent) {
         drivePercent.setText(percent);
     }
@@ -666,6 +803,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void setRamPercent(String percent) {
         ramPercent.setText(percent);
+    }
+
+    public JTable getProcessesTable() {
+        return processesTable;
     }
 
     private void commandExecute() {
@@ -687,7 +828,7 @@ public class MainFrame extends javax.swing.JFrame {
                     text += "<br>";
                 }
 
-                for (String line: data){
+                for (String line : data) {
                     text += "<font color='#000000' face='roboto'>" + line + "</font><br>";
                 }
 
@@ -720,26 +861,34 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel drivePercent;
     private javax.swing.JLabel executeIcon;
     private javax.swing.JPanel headBar;
-    private javax.swing.JPanel homePane;
+    private javax.swing.JPanel homePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel optionOne;
+    private javax.swing.JPanel optionThree;
     private javax.swing.JPanel optionTwo;
     private javax.swing.JLabel performanceLabel;
-    private javax.swing.JPanel performancePane;
+    private javax.swing.JPanel performancePanel;
+    private javax.swing.JLabel processesLabel;
+    private javax.swing.JPanel processesPanel;
+    private javax.swing.JTable processesTable;
     private javax.swing.JPanel processorPanel;
     private javax.swing.JLabel processorPercent;
     private javax.swing.JPanel ramPanel;
@@ -747,7 +896,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel sectionLabel;
     private javax.swing.JPanel sectionPane;
     private javax.swing.JLabel shellLabel;
-    private javax.swing.JPanel shellPane;
+    private javax.swing.JPanel shellPanel;
     private javax.swing.JPanel sidePane;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel titleLabel1;

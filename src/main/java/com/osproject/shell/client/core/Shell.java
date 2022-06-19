@@ -5,13 +5,7 @@
 package com.osproject.shell.client.core;
 
 import com.osproject.shell.client.components.LoginFrame;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class Shell extends Thread {
 
-    private LoginFrame loginFrame;
+    private final LoginFrame loginFrame;
 
     public Shell(LoginFrame loginFrame) {
         this.loginFrame = loginFrame;

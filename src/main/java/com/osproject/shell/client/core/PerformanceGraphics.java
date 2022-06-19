@@ -1,11 +1,12 @@
-package com.osproject.shell.client.utils;
+package com.osproject.shell.client.core;
 
+import com.osproject.shell.client.components.LoginFrame;
 import com.osproject.shell.client.components.MainFrame;
+import com.osproject.shell.client.utils.InterfaceColors;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayDeque;
-import java.util.Random;
 import javax.swing.Timer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -18,23 +19,24 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class PerformanceGraphics {
 
-    private static final Random random = new Random();
-    private static final int n = 100;
+    private static final int points = 100;
     private final MainFrame main;
+    private final Performance performance;
 
-    public PerformanceGraphics(MainFrame main) {
+    public PerformanceGraphics(MainFrame main, LoginFrame loginFrame) {
         this.main = main;
+        this.performance = new Performance(loginFrame);
     }
 
-    public ChartPanel createPaneProccesor() {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(n);
+    public ChartPanel createPanelProccesor() {
+        ArrayDeque<Double> arrayDeque = new ArrayDeque<>(points);
 
-        for (int i = 0; i < n; i++) {
-            arrayDeque.add(random.nextInt(101));
+        for (int i = 0; i < points; i++) {
+            arrayDeque.add(this.performance.getConsume("processor"));
         }
 
         XYSeries series = new XYSeries("Data");
-        for (Integer data : arrayDeque) {
+        for (Double data : arrayDeque) {
             series.add(series.getItemCount(), data);
         }
 
@@ -42,9 +44,9 @@ public class PerformanceGraphics {
 
         new Timer(1000, (ActionEvent e) -> {
             arrayDeque.poll();
-            arrayDeque.add(random.nextInt(101));
+            arrayDeque.add(this.performance.getConsume("processor"));
             series.clear();
-            for (Integer data : arrayDeque) {
+            for (Double data : arrayDeque) {
                 series.add(series.getItemCount(), data);
             }
             String percent = arrayDeque.getLast() + "%";
@@ -54,15 +56,15 @@ public class PerformanceGraphics {
         return getChartPanel(dataset);
     }
 
-    public ChartPanel createPaneRam() {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(n);
+    public ChartPanel createPanelRam() {
+        ArrayDeque<Double> arrayDeque = new ArrayDeque<>(points);
 
-        for (int i = 0; i < n; i++) {
-            arrayDeque.add(random.nextInt(101));
+        for (int i = 0; i < points; i++) {
+            arrayDeque.add(this.performance.getConsume("memory"));
         }
 
         XYSeries series = new XYSeries("Data");
-        for (Integer data : arrayDeque) {
+        for (Double data : arrayDeque) {
             series.add(series.getItemCount(), data);
         }
 
@@ -70,9 +72,9 @@ public class PerformanceGraphics {
 
         new Timer(1000, (ActionEvent e) -> {
             arrayDeque.poll();
-            arrayDeque.add(random.nextInt(101));
+            arrayDeque.add(this.performance.getConsume("memory"));
             series.clear();
-            for (Integer data : arrayDeque) {
+            for (Double data : arrayDeque) {
                 series.add(series.getItemCount(), data);
             }
             String percent = arrayDeque.getLast() + "%";
@@ -82,26 +84,10 @@ public class PerformanceGraphics {
         return getChartPanel(dataset);
     }
 
-    private ChartPanel getChartPanel(XYSeriesCollection dataset) {
-        JFreeChart chart = ChartFactory.createXYLineChart("", "",
-                "", dataset, PlotOrientation.VERTICAL, false, false, false);
+    public ChartPanel createPanelDrive() {
+        ArrayDeque<Double> arrayDeque = new ArrayDeque<>(2);
 
-        chart.getXYPlot().getDomainAxis().setVisible(false);
-        chart.getXYPlot().setBackgroundPaint(Color.white);
-        chart.getXYPlot().getRenderer().setSeriesPaint(0, new Color(9, 121, 176));
-
-        return new ChartPanel(chart) {
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(415, 150);
-            }
-        };
-    }
-
-    public ChartPanel createPaneDrive() {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(2);
-
-        arrayDeque.add(random.nextInt(101));
+        arrayDeque.add(this.performance.getConsume("drive"));
         arrayDeque.add(100 - arrayDeque.getFirst());
 
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
@@ -110,7 +96,7 @@ public class PerformanceGraphics {
 
         new Timer(1000, (ActionEvent e) -> {
             arrayDeque.clear();
-            arrayDeque.add(random.nextInt(101));
+            arrayDeque.add(this.performance.getConsume("drive"));
             arrayDeque.add(100 - arrayDeque.getFirst());
 
             dataset.clear();
@@ -135,6 +121,22 @@ public class PerformanceGraphics {
             @Override
             public Dimension getPreferredSize() {
                 return new Dimension(250, 250);
+            }
+        };
+    }
+
+    private ChartPanel getChartPanel(XYSeriesCollection dataset) {
+        JFreeChart chart = ChartFactory.createXYLineChart("", "",
+                "", dataset, PlotOrientation.VERTICAL, false, false, false);
+
+        chart.getXYPlot().getDomainAxis().setVisible(false);
+        chart.getXYPlot().getRangeAxis().setRange(0, 100);
+        chart.getXYPlot().setBackgroundPaint(Color.white);
+        chart.getXYPlot().getRenderer().setSeriesPaint(0, InterfaceColors.BLUE);
+        return new ChartPanel(chart) {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(415, 150);
             }
         };
     }
